@@ -5,14 +5,12 @@ from sqlalchemy.orm import relationship, declarative_base
 
 Base = declarative_base()
 
-# Таблица groups
 class Group(Base):
     __tablename__ = "groups"
     id = Column(Integer, primary_key=True)
     name = Column(String(50), nullable=False)
     students = relationship("Student", back_populates="group", cascade="all, delete")
 
-# Таблица students
 class Student(Base):
     __tablename__ = "students"
     id = Column(Integer, primary_key=True)
@@ -21,14 +19,12 @@ class Student(Base):
     group = relationship("Group", back_populates="students")
     grades = relationship("Grade", back_populates="student", cascade="all, delete")
 
-# Таблица teachers
 class Teacher(Base):
     __tablename__ = "teachers"
     id = Column(Integer, primary_key=True)
     fullname = Column(String(100), nullable=False)
     subjects = relationship("Subject", back_populates="teacher", cascade="all, delete")
 
-# Таблица subjects
 class Subject(Base):
     __tablename__ = "subjects"
     id = Column(Integer, primary_key=True)
@@ -37,7 +33,6 @@ class Subject(Base):
     teacher = relationship("Teacher", back_populates="subjects")
     grades = relationship("Grade", back_populates="subject", cascade="all, delete")
 
-# Таблица grades
 class Grade(Base):
     __tablename__ = "grades"
     id = Column(Integer, primary_key=True)
